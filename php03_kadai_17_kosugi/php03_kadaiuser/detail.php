@@ -94,7 +94,7 @@ if ($status == false) {
             <option value="0" <?= $result['life_flg']  == 0 ? 'selected' : '' ?> >0</option>
             <option value="1" <?= $result['life_flg']  == 1 ? 'selected' : '' ?> >1</option>
          </select></label>
-
+      <input type="hidden" name="id" value=<?= $result['id'] ?>>
          <input type="submit" value="登録">
     </fieldset>
 
