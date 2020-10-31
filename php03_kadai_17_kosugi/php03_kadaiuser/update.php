@@ -9,9 +9,11 @@
 //4. header関数"Location"を「select.php」に変更
 require_once('funcs.php');
 //1. POSTデータ取得
-$name   = $_POST["name"];
-$url  = $_POST["url"];
-$text = $_POST["text"];
+$name = $_POST['name'];
+$lid = $_POST['lid'];
+$lpw = $_POST['lpw'];
+$kanri_flg = $_POST['kanri_flg'];
+$life_flg = $_POST['life_flg'];
 $id    = $_POST["id"];
 //2. DB接続します
 //*** function化する！  *****************
@@ -19,18 +21,21 @@ $id    = $_POST["id"];
 $pdo = db_conn();
 //３．データ登録SQL作成
 $stmt = $pdo->prepare("UPDATE
-                            gs_bm_table
+                            gs_user_table
                         SET
                             name = :name,
-                            url = :url,
-                            text = :text,
-                            indate = sysdate()
+                            lid = :lid,
+                            lpw = :lpw,
+                            kanri_flg = :kanri_flg,
+                            life_flg  = :life_flg 
                         WHERE
                             id = :id;
                         ");
 $stmt->bindValue(':name', h($name), PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
-$stmt->bindValue(':url', h($url), PDO::PARAM_STR);    //Integer（数値の場合 PDO::PARAM_INT)
-$stmt->bindValue(':text', h($text), PDO::PARAM_STR);        //Integer（数値の場合 PDO::PARAM_INT)
+$stmt->bindValue(':lid', h($lid), PDO::PARAM_STR);    //Integer（数値の場合 PDO::PARAM_INT)
+$stmt->bindValue(':lpw', h($lpw), PDO::PARAM_STR);  //Integer（数値の場合 PDO::PARAM_INT)
+$stmt->bindValue(':kanri_flg', h($kanri_flg), PDO::PARAM_INT);    //Integer（数値の場合 PDO::PARAM_INT)
+$stmt->bindValue(':life_flg', h($life_flg), PDO::PARAM_INT);  //Integer（数値の場合 PDO::PARAM_INT)
 $stmt->bindValue(':id', h($id), PDO::PARAM_INT);  //Integer（数値の場合 PDO::PARAM_INT)
 $status = $stmt->execute(); //実行
 //４．データ登録処理後
